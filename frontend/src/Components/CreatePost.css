@@ -1,0 +1,109 @@
+/* 🧼 Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 🎯 Wrapper */
+.create-post-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #141e30, #243b55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+
+/* 🧾 Form Container */
+.create-post-form {
+  background: linear-gradient(to right, #f8f8f8, #e0e0e0);
+  padding: 40px 32px;
+  border-radius: 16px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;
+  transition: transform 0.2s ease;
+}
+
+.create-post-form:hover {
+  transform: translateY(-3px);
+}
+
+.create-post-form h2 {
+  text-align: center;
+  color: #2c2c2c;
+  margin-bottom: 30px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* 🧩 Form Groups */
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #555;
+  font-size: 15px;
+}
+
+/* 📁 File Input */
+.form-group input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  transition: border 0.3s ease, box-shadow 0.2s ease;
+}
+
+.form-group input[type="file"]:focus {
+  border-color: #b91d73;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(185, 29, 115, 0.15);
+}
+
+/* ✍️ Textarea */
+textarea {
+  width: 100%;
+  min-height: 130px;
+  padding: 14px 16px;
+  border: 1.5px solid #ccc;
+  border-radius: 10px;
+  resize: vertical;
+  font-size: 15px;
+  line-height: 1.5;
+  transition: border 0.3s ease, box-shadow 0.2s ease;
+}
+
+textarea:focus {
+  border-color: #b91d73;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(185, 29, 115, 0.1);
+}
+
+/* ✅ Submit Button */
+.create-button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #b91d73, #f953c6);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  letter-spacing: 0.3px;
+}
+
+.create-button:hover {
+  background: linear-gradient(135deg, #a01865, #e048b4);
+  transform: translateY(-1px);
+}

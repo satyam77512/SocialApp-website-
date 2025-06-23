@@ -1,0 +1,71 @@
+/* Dark mode sidebar with top space for header */
+.side-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 15vw;
+  height: 100vh;
+  background: linear-gradient(180deg, #1a1a2e, #161625);
+  border-right: 1px solid #2e2e42;
+  padding: 30px 20px;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Brand/Header at top of sidebar */
+.nav-header {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 4px;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+}
+
+/* Navigation links section */
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Nav button styled like real buttons */
+.nav-button {
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 14px 18px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #e4e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  box-shadow: inset 0 0 0 0 transparent;
+}
+
+.nav-button:hover {
+  background-color: #2563eb;
+  color: #ffffff;
+  transform: translateX(6px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+  border: 1px solid #2563eb;
+}
+
+.nav-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 170, 255, 0.3);
+}
+
+.emoji {
+  font-size: 22px;
+}
