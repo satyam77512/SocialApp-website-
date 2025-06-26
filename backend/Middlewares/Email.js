@@ -13,7 +13,7 @@ const mailer = async(req,res) =>{
 
     const to = user.Email;
 
-    var token = jwt.sign({UserName}, 'shhhhh');
+    var token = jwt.sign({UserName}, process.env.JWT_SECRET);
     const text = `${process.env.FRONTEND_API_LINK}/changePassword/${token}/${time}`;
 
     try {

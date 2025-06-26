@@ -46,6 +46,7 @@ useEffect(() => {
       };
       var likePromise = axios.post(`${BaseUrl()}/user/post/like`, {postId,User}, {
           headers: headers,
+          withCredentials:true
       });
 
       toast.promise(likePromise,{

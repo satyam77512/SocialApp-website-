@@ -32,6 +32,7 @@ const Login = () => {
         };
         const loginPromise = axios.post(`${BaseUrl()}/user/auth/login`, {UserName,Password}, {
             headers: headers,
+            withCredentials: true
         });
         toast.promise(
             loginPromise,
@@ -42,8 +43,7 @@ const Login = () => {
         );
         try {
             const response = await loginPromise;
-            navigate("/home");
-
+            
             Dispatch(
                 setUserData({
                     Name:response.data.Name,
@@ -54,6 +54,7 @@ const Login = () => {
             )
             setUserName('');
             setPassword('');
+            navigate("/home");
 
         } catch (error) {
            toast.dismiss(); // remove loading
@@ -97,7 +98,7 @@ const Login = () => {
                         id="username"
                         name="UserName"
                         placeholder="Enter your username"
-                        required:true
+                        required
                         onChange={(e)=>setUserName(e.target.value)}
                     />
                 </div>

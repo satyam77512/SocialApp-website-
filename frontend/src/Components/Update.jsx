@@ -14,8 +14,38 @@ import "./Update.css";
 import { toast, ToastContainer } from "react-toastify";
 
 const Update = () => {
-  const user = useSelector((state) => state.UserData);
+  const UserData = useSelector((state) => state.UserData);
   const Dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [auth,setAuth] = useState(false);
+
+  useEffect(() => {
+    const authChecker = async () => {
+      if (!UserData || !UserData.UserId || !UserData.UserName) {
+        navigate("/"); // or "/" as you wish
+        return;
+      }
+
+      try {
+        const response = await axios.post(
+          `${BaseUrl()}/check`,
+          { UserName: UserData.UserName },
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true
+          }
+        );
+        console.log(response);
+        setAuth(true);
+      } catch (error) {
+        console.log("Auth failed:", error.message);
+        navigate("/");
+      }
+    };
+
+    authChecker();
+  }, [UserData, navigate]);
+
 
   const [formData, setFormData] = useState({
     Name: "",
@@ -29,19 +59,16 @@ const Update = () => {
     Gender: "",
   });
 
-  const navigate = useNavigate();
-
   useEffect(() => {
-
     const fetchCurrentDetails = async()=>{
-
-      const UserId = user.UserId;
+      if(!auth) return;
+      const UserId = UserData.UserId;
       const headers = {
         "Content-Type": "application/json",
       };
       const currentDetailsPromise = axios.post(
         `${BaseUrl()}/user/details/UserDetails`,{UserId},
-        { headers }
+        { headers,withCredentials:true}
       );
       
       toast.promise(currentDetailsPromise,{
@@ -71,7 +98,7 @@ const Update = () => {
     }
 
     fetchCurrentDetails();
-  }, []);
+  }, [auth]);
 
   // console.log(formData.Email);
 

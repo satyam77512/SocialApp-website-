@@ -16,37 +16,61 @@ import "./HomePage.css";
 const HomePage = () => {
   const UserData = useSelector((state) => state.UserData);
   const navigate = useNavigate();
+  const [auth, setAuth] = useState(false);
 
   useEffect(() => {
-    if (UserData.UserName == '') {
-      navigate('/');
-    }
-  }, [navigate, UserData]);
+    const authChecker = async () => {
+      if (!UserData || !UserData.UserId || !UserData.UserName) {
+        navigate("/"); // or "/" as you wish
+        return;
+      }
+
+      try {
+        const response = await axios.post(
+          `${BaseUrl()}/check`,
+          { UserName: UserData.UserName },
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true
+          }
+        );
+        // console.log(response);
+        setAuth(true);
+      } catch (error) {
+        console.log("Auth failed:", error.message);
+        navigate("/");
+      }
+    };
+
+    authChecker();
+  }, [UserData, navigate]);
+
 
   const [PostArray, setPostArray] = useState([]);
-  const [index,setIndex] = useState(0);
-  const [available,setAvilable] = useState(true);
+  const [index, setIndex] = useState(0);
+  const [available, setAvilable] = useState(true);
 
   useEffect(() => {
     const fetchPost = async () => {
+      if (!auth) return;
       const headers = {
         "Content-Type": "application/json",
       };
       const getPostsPromise = axios.post(
         `${BaseUrl()}/user/post/getAllPost`,
-        {index},
-        { headers }
+        { index },
+        { headers, withCredentials: true }
       );
-      
+
       toast.promise(getPostsPromise, {
         pending: 'Fetching Posts...',
       });
-      
+
       try {
         const response = await getPostsPromise;
         setPostArray(response.data.posts);
         setAvilable(response.data.hasMore);
-        setIndex(index+1);
+        setIndex(index + 1);
       } catch (error) {
         toast.dismiss();
         toast.error("cannot fetch post..")
@@ -54,34 +78,34 @@ const HomePage = () => {
     }
 
     fetchPost();
-  }, [])
+  }, [auth])
 
-    const ClickHandler = async (e) => {
+  const ClickHandler = async (e) => {
 
-      e.preventDefault();
-      const headers = {
-        "Content-Type": "application/json",
-      };
-      const getPostsPromise = axios.post(
-        `${BaseUrl()}/user/post/getAllPost`,
-        {index},
-        { headers }
-      );
-      
-      toast.promise(getPostsPromise, {
-        pending: 'Fetching Posts...',
-      });
-      
-      try {
-        const response = await getPostsPromise;
-        setPostArray(prev => [...prev, ...response.data.posts]);
-        setAvilable(response.data.hasMore);
-        setIndex(index+1);
-      } catch (error) {
-        toast.dismiss();
-        toast.error("cannot fetch post..")
-      }
+    e.preventDefault();
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    const getPostsPromise = axios.post(
+      `${BaseUrl()}/user/post/getAllPost`,
+      { index },
+      { headers }
+    );
+
+    toast.promise(getPostsPromise, {
+      pending: 'Fetching Posts...',
+    });
+
+    try {
+      const response = await getPostsPromise;
+      setPostArray(prev => [...prev, ...response.data.posts]);
+      setAvilable(response.data.hasMore);
+      setIndex(index + 1);
+    } catch (error) {
+      toast.dismiss();
+      toast.error("cannot fetch post..")
     }
+  }
 
   return (
     <>

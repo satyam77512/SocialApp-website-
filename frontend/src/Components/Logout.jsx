@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { setUserData } from '../Redux/actions.js'
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { BaseUrl } from '../BaseUrl.js';
+import axios from "axios";
 
 const Logout = () => {
 
@@ -10,7 +12,12 @@ const Logout = () => {
     const Navigate = useNavigate();
 
     useEffect(() => {
-        const clearData = () => {
+        const clearData = async() => {
+            await axios.post(
+                `${BaseUrl()}/user/auth/logout`,
+                {},
+                { withCredentials: true }
+            );
             Dispatch(
                 setUserData({
                     Name: '',

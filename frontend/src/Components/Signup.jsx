@@ -38,7 +38,7 @@ const Signup = () => {
         const signUpPromise =  axios.post(
           `${BaseUrl()}/user/auth/signup`,
           formData,
-          { headers }
+          { headers ,withCredentials:true}
         );
 
         toast.promise(

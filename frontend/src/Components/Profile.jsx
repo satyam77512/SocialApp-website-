@@ -15,11 +15,33 @@ import "./Profile.css";
 const Profile = () => {
   const UserData = useSelector((state) => state.UserData);
   const navigate = useNavigate();
-
+  const [auth, setAuth] = useState(false);
+  
   useEffect(() => {
-    if (!UserData || !UserData.UserId) {
-      navigate("/login");
-    }
+    const authChecker = async () => {
+      if (!UserData || !UserData.UserId || !UserData.UserName) {
+        navigate("/"); // or "/" as you wish
+        return;
+      }
+
+      try {
+        const response = await axios.post(
+          `${BaseUrl()}/check`,
+          { UserName: UserData.UserName },
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true
+          }
+        );
+        // console.log(response);
+        setAuth(true);
+      } catch (error) {
+        console.log("Auth failed:", error.message);
+        navigate("/");
+      }
+    };
+
+    authChecker();
   }, [UserData, navigate]);
 
   const [user,setUser] = useState({
@@ -37,6 +59,7 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchData = async()=>{
+      if(!auth) return;
 
       const UserId = UserData.UserId;
 
@@ -45,6 +68,7 @@ const Profile = () => {
       };
       const likePromise = axios.post(`${BaseUrl()}/user/details/UserDetails`, {UserId}, {
           headers: headers,
+          withCredentials:true
       });
       
       toast.promise(likePromise,{
@@ -77,7 +101,7 @@ const Profile = () => {
 
     }
     fetchData();
-  }, []);
+  }, [auth]);
 
 
 
