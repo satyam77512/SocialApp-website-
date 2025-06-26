@@ -4,6 +4,7 @@ import { BaseUrl } from '../BaseUrl.js';
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 import PostCard from "./PostCard.jsx";
 import Header from "./Header.jsx";
