@@ -10,27 +10,31 @@ import { setUserData, setUserID } from '../Redux/actions.js';
 import "./Login.css";
 
 const Login = () => {
-    const [UserName,setUserName] = useState('');
-    const [Password,setPassword] = useState('');
+    const [UserName, setUserName] = useState('');
+    const [Password, setPassword] = useState('');
 
-    const UserData = useSelector((state)=>state.UserData);
+    const UserData = useSelector((state) => state.UserData);
 
-    useEffect(()=>{
-        if(UserData && UserData.UserName !=='')
-        {
+    useEffect(() => {
+        if (
+            UserData &&
+            Object.keys(UserData).length > 0 &&
+            UserData.UserName &&
+            UserData.UserName !== ""
+        ) {
             navigate("/home");
         }
-    },[])
+    }, [])
 
     const Dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleSubmit = async(e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const headers = {
             "Content-Type": "application/json", // multer problem due to this
         };
-        const loginPromise = axios.post(`${BaseUrl()}/user/auth/login`, {UserName,Password}, {
+        const loginPromise = axios.post(`${BaseUrl()}/user/auth/login`, { UserName, Password }, {
             headers: headers,
             withCredentials: true
         });
@@ -43,13 +47,13 @@ const Login = () => {
         );
         try {
             const response = await loginPromise;
-            
+
             Dispatch(
                 setUserData({
-                    Name:response.data.Name,
-                    ProfileImage:response.data.ProfileImage,
-                    UserName:response.data.UserName,
-                    UserId:response.data._id
+                    Name: response.data.Name,
+                    ProfileImage: response.data.ProfileImage,
+                    UserName: response.data.UserName,
+                    UserId: response.data._id
                 })
             )
             setUserName('');
@@ -57,29 +61,29 @@ const Login = () => {
             navigate("/home");
 
         } catch (error) {
-           toast.dismiss(); // remove loading
+            toast.dismiss(); // remove loading
             if (error.response && error.response.status === 409) {
-            toast.error("wrong Credentials");
+                toast.error("wrong Credentials");
             } else {
-            toast.error("Login failed. Please try again.");
+                toast.error("Login failed. Please try again.");
             }
             console.log("Server Error:", error);
         }
     }
 
-    const forgotClick  = async(e)=>{
+    const forgotClick = async (e) => {
         e.preventDefault();
         const headers = {
             "Content-Type": "application/json", // multer problem due to this
         };
-        const loginPromise = axios.post(`${BaseUrl()}/user/auth/email`, {UserName}, {
+        const loginPromise = axios.post(`${BaseUrl()}/user/auth/email`, { UserName }, {
             headers: headers,
         });
         toast.promise(
             loginPromise,
             {
                 pending: 'Please wait..',
-                success:'Password reset link sent to your Email.',
+                success: 'Password reset link sent to your Email.',
                 error: 'Failed. Please try again.'
             }
         );
@@ -87,7 +91,7 @@ const Login = () => {
 
     return (
         <div className="login-wrapper">
-            <ToastContainer/>
+            <ToastContainer />
             <form className="login-form" onSubmit={handleSubmit}>
                 <h2>Login</h2>
 
@@ -99,7 +103,7 @@ const Login = () => {
                         name="UserName"
                         placeholder="Enter your username"
                         required
-                        onChange={(e)=>setUserName(e.target.value)}
+                        onChange={(e) => setUserName(e.target.value)}
                     />
                 </div>
 
@@ -110,7 +114,7 @@ const Login = () => {
                         id="password"
                         name="Password"
                         placeholder="Enter your password"
-                        onChange={(e)=>setPassword(e.target.value)}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
 
