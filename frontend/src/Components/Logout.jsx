@@ -12,7 +12,7 @@ const Logout = () => {
     const Navigate = useNavigate();
 
     useEffect(() => {
-        const clearData = async() => {
+        const clearData = async () => {
             await axios.post(
                 `${BaseUrl()}/user/auth/logout`,
                 {},
@@ -34,7 +34,9 @@ const Logout = () => {
 
     return (
         <>
-            Getting you logged out
+            <div style={{ backgroundColor: 'aliceblue', padding: '20px' }}>
+                <h1 style={{ color: '#333', margin: 0 }}>Getting you logged out</h1>
+            </div>
         </>
     )
 }
