@@ -92,3 +92,48 @@
   font-size: 1.5rem;
   margin-left: auto;
 }
+
+/* Responsive styles for PostCard */
+
+@media (max-width: 900px) {
+  .post-card {
+    max-width: 90vw;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .post-card {
+    max-width: 98vw;
+    padding: 0.7rem;
+    margin: 1rem 0;
+    border-radius: 10px;
+  }
+  .post-header {
+    font-size: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  .username {
+    font-size: 0.95rem;
+  }
+  .post-image img {
+    max-height: 180px;
+    border-radius: 8px;
+  }
+  .post-content {
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+  }
+  .post-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  .like-button, .like-count {
+    width: auto;
+    font-size: 1rem;
+    padding: 8px 12px;
+  }
+}

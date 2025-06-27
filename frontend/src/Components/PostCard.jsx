@@ -12,7 +12,7 @@ const PostCard = ({ post , mypost = false , username="anonymous"}) => {
   const UserData = useSelector((state)=> state.UserData);
 
   const Navigate = useNavigate();
-
+  
   const [liked, setLiked] = useState(false);
   const [count,setCount] = useState(0);
 useEffect(() => {
@@ -107,7 +107,7 @@ useEffect(() => {
         <button className="like-button" onClick={handleClick}>
           <span className="like-icon">{liked ? "❤️" : "🤍"}</span>
         </button>
-          <span className="like-count">{count} love</span>
+          <span className="like-count">{count} like</span>
       </div>
 
     </div>

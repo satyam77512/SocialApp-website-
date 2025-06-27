@@ -24,7 +24,7 @@ const HomePage = () => {
         navigate("/"); // or "/" as you wish
         return;
       }
-
+      
       try {
         const response = await axios.post(
           `${BaseUrl()}/check`,

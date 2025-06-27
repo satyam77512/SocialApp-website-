@@ -15,7 +15,7 @@ const cors = require('cors');
 const { error } = require('console');
 
 app.use(cors({
-    origin: "http://localhost:5173", // or your frontend URL
+    origin: process.env.FRONTEND_API_LINK, // or your frontend URL
     credentials: true
 }));
 

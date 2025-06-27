@@ -15,7 +15,7 @@ const Header = () => {
     e.preventDefault();
     Navigate("/logout");
   }
-
+  
   return (
     <>
       {LoggedIn &&
