@@ -34,7 +34,7 @@ const signUpHandler = async (req, res) => {
                     );
                     res.cookie("token", token, {
                         httpOnly: true,
-                        sameSite: "strict",
+                        sameSite: "none",
                         secure: true, // true if NOT localhost, false if localhost
                         maxAge: 7 * 24 * 60 * 60 * 1000
                     });
@@ -77,7 +77,7 @@ const loginHandler = async (req, res) => {
                         );
                         res.cookie("token", token, {
                             httpOnly: true,
-                            sameSite: "strict",
+                            sameSite: "none",
                             secure: true, // true if NOT localhost, false if localhost
                             maxAge: 7 * 24 * 60 * 60 * 1000
                         });
@@ -138,7 +138,7 @@ const logoutHandle = (req, res) => {
 
     res.clearCookie("token", {
         httpOnly: true,
-        sameSite: "strict", // or "strict", must match your login cookie
+        sameSite: "none", // or "strict", must match your login cookie
         secure: true,     // must match your login cookie
     });
     res.json({ message: "Logged out" });
