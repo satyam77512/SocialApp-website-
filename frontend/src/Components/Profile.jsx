@@ -19,7 +19,7 @@ const Profile = () => {
   
   useEffect(() => {
     const authChecker = async () => {
-      if (!UserData && !UserData.UserId && !UserData.UserName) {
+      if (!UserData || !UserData.UserId || !UserData.UserName) {
         navigate("/"); // or "/" as you wish
         return;
       }
