@@ -1,46 +1,55 @@
-const post = require('../Models/post');
 const postModel = require('../Models/post');
-const user = require('../Models/user');
 const userModel = require('../Models/user');
 const cloudinary = require("../Utils/cloudinary");
 
-const createPostHandler = async (req, res) =>{
-  var postImage = null;
-  var postImage_id = null;
+const createPostHandler = async (req, res) => {
+  try {
+    var postImage = null;
+    var postImage_id = null;
 
-  if(req.files.postImage)
-  {
+    if (req.files.postImage) {
+      try {
+        const result = await cloudinary.uploader.upload(req.files.postImage[0].path, {
+          width: 300,
+          height: 300,
+          crop: "thumb",
+          quality: "auto:eco",
+          format: "webp",
+          transformation: [
+            { fetch_format: "auto" },
+            { dpr: "auto" },
+            { effect: "sharpen:30" }
+          ]
+        });
+        postImage = result.url;
+        postImage_id = result.public_id;
+      } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Image upload failed." });
+      }
+    }
 
-    const result = await cloudinary.uploader.upload(req.files.postImage[0].path, {
-      width: 300,                  
-      height: 300,
-      crop: "thumb",               
-      quality: "auto:eco",            
-      format: "webp",               
-      transformation: [
-        { fetch_format: "auto" },    
-        { dpr: "auto" },           
-        { effect: "sharpen:30" }      
-      ]
-    });
-    
-    postImage = result.url;
-    postImage_id = result.public_id;
-  }
-    
-    const user = await userModel.findOne({UserName:req.body.UserName});
+    const user = await userModel.findOne({ UserName: req.body.UserName });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
     const newPost = await postModel.create({
-        user:user._id,
-        content:req.body.content,
-        postImage,
-        postImage_id
+      user: user._id,
+      content: req.body.content,
+      postImage,
+      postImage_id
     });
-    
+
     user.Posts.push(newPost._id);
     await user.save();
 
     return res.status(200).send("post created");
-}
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Failed to create post." });
+  }
+};
 
 const getAllPost = async (req, res) => {
   try {

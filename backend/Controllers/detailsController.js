@@ -2,14 +2,18 @@ const postModel = require('../Models/post');
 const userModel = require('../Models/user');
 const cloudinary = require("../Utils/cloudinary");
 
-const UserDetail = async(req,res)=>{
-    const User = await userModel.findOne({_id:req.body.UserId}).populate("LikedPost");
-    if(!User)
-    {
-        return res.status(409).json({message : "cannot find user"});
+const UserDetail = async (req, res) => {
+    try {
+        const User = await userModel.findOne({ _id: req.body.UserId }).populate("LikedPost");
+        if (!User) {
+            return res.status(409).json({ message: "cannot find user" });
+        }
+        const data = User;
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Internal server error" });
     }
-    const data = User;
-    return res.status(200).json(data);
 }
 
 const Update = async(req,res)=>{
