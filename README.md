@@ -1,6 +1,7 @@
 # 🌐 Social Media Website
 
 A full-stack social media web application that allows users to sign up, post text and images, react with likes, search for other users, and edit their own posts. Built with the MERN stack and secured with JSON Web Tokens (JWT) and HTTP-only cookies.
+<br>
 [![Live Website](https://img.shields.io/badge/Live%20Website-Click%20Here-blue?style=for-the-badge)](https://social-app-website-6dq3.vercel.app/)
 ---
 
