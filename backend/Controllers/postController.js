@@ -4,11 +4,12 @@ const cloudinary = require("../Utils/cloudinary");
 
 const createPostHandler = async (req, res) => {
   try {
-    var postImage = null;
-    var postImage_id = null;
+    var postImage = null; // array
+    var postImage_id = null;  // array
 
     if (req.files.postImage) {
       try {
+        // for loop on each image of  req.file.postImages
         const result = await cloudinary.uploader.upload(req.files.postImage[0].path, {
           width: 300,
           height: 300,
@@ -77,7 +78,6 @@ const getAllPost = async (req, res) => {
     return res.status(500).json({ message: "Failed to fetch posts." });
   }
 };
-
 
 const likePost = async (req, res) => {
 

@@ -89,7 +89,7 @@ const HomePage = () => {
     const getPostsPromise = axios.post(
       `${BaseUrl()}/user/post/getAllPost`,
       { index },
-      { headers }
+      { headers, withCredentials: true }
     );
 
     toast.promise(getPostsPromise, {

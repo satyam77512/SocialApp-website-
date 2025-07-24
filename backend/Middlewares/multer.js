@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const uploadMiddleware = upload.fields([
-    {name:'postImage',maxCount: 1},
+    {name:'postImage',maxCount: 1}, // change maxCount , postImage(plural)
 ]);
 
 module.exports = uploadMiddleware;

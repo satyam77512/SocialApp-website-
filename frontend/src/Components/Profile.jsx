@@ -20,7 +20,7 @@ const Profile = () => {
   useEffect(() => {
     const authChecker = async () => {
       if (!UserData || !UserData.UserId || !UserData.UserName) {
-        navigate("/"); // or "/" as you wish
+        navigate("/"); // 
         return;
       }
 
@@ -114,6 +114,7 @@ const Profile = () => {
     <>
     <Header/>
     <SideNavbar/>
+    <ToastContainer/>
     <div className="profile-container">
       <div className="profile-card">
         <div className="profile-image-section">

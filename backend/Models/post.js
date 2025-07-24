@@ -10,11 +10,11 @@ const postSchema = mongoose.Schema({
         default:Date.now
     },
     content: String,
-    postImage: {
+    postImage: {   // change it to array
         type:String,
         default:null
     },
-    postImage_id:{
+    postImage_id:{  // change it to array
         type:String,
         default:null
     },
@@ -24,5 +24,6 @@ const postSchema = mongoose.Schema({
         default: {}
     }
 });
+
 
 module.exports = mongoose.model("post",postSchema);
