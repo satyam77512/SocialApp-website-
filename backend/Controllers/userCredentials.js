@@ -8,9 +8,7 @@ const signUpHandler = async (req, res) => {
     try {
         const { Name, Email, UserName, Password } = req.body;
         // check
-        var user = await userModel.findOne({ UserName });
-        if(!user)
-        user = await userModel.findOne({Email});
+        const user = await userModel.findOne({ UserName });
         if (user) {
             return res.status(409).json({ message: "User already exists" });
         }

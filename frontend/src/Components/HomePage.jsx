@@ -98,7 +98,7 @@ const HomePage = () => {
 
     try {
       const response = await getPostsPromise;
-      setPostArray(prev => [...prev, ...response.data.posts]); // functional update
+      setPostArray(prev => [...prev, ...response.data.posts]);
       setAvilable(response.data.hasMore);
       setIndex(index + 1);
     } catch (error) {
