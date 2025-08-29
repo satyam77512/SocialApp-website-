@@ -50,7 +50,7 @@ const SearchPage = () => {
 
     const handleSearch = async (e) => {
         e.preventDefault();
-
+        const UserName = UserData.UserName;
         try {
             const headers = {
                 "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const SearchPage = () => {
 
             const getUserPromise = axios.post(
                 `${BaseUrl()}/user/details/search`,
-                { username },
+                { username,UserName},
                 { headers, withCredentials: true }
             );
 

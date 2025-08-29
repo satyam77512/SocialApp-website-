@@ -4,9 +4,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserData, setUserID } from '../Redux/actions.js';
-import PostCard from './PostCard.jsx';
+import { useSelector } from "react-redux";
 import Header from './Header.jsx';
 import SideNavbar from './SideNavbar.jsx';
 
@@ -62,11 +60,11 @@ const Profile = () => {
       if(!auth) return;
 
       const UserId = UserData.UserId;
-
+      const UserName = UserData.UserName;
       const headers = {
         "Content-Type": "application/json", 
       };
-      const likePromise = axios.post(`${BaseUrl()}/user/details/UserDetails`, {UserId}, {
+      const likePromise = axios.post(`${BaseUrl()}/user/details/UserDetails`, {UserId,UserName}, {
           headers: headers,
           withCredentials:true
       });

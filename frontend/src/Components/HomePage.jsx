@@ -53,12 +53,14 @@ const HomePage = () => {
   useEffect(() => {
     const fetchPost = async () => {
       if (!auth) return;
+
+      const UserName = UserData.UserName;
       const headers = {
         "Content-Type": "application/json",
       };
       const getPostsPromise = axios.post(
         `${BaseUrl()}/user/post/getAllPost`,
-        { index },
+        { index,UserName},
         { headers, withCredentials: true }
       );
 

@@ -48,12 +48,13 @@ const MyPosts = () => {
 
   useEffect(() => {
     const fetchMyPosts = async () => {
+      const UserName = UserData.UserName;
       if(!auth) return;
       try {
         const headers = {
           "Content-Type": "application/json", // multer problem due to this
         };
-        const fetchPostPromise = axios.post(`${BaseUrl()}/user/details/userPost`, { UserId: UserData.UserId }, {
+        const fetchPostPromise = axios.post(`${BaseUrl()}/user/details/userPost`, { UserId: UserData.UserId,UserName}, {
           headers: headers,
           withCredentials: true
         });

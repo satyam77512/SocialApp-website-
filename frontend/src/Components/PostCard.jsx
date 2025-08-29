@@ -38,13 +38,14 @@ useEffect(() => {
       setLiked(!liked);
       const User = UserData.UserId;
       const postId = post._id;
+      const UserName = UserData.UserName;
 
       e.preventDefault();
 
       const headers = {
         "Content-Type": "application/json", 
       };
-      var likePromise = axios.post(`${BaseUrl()}/user/post/like`, {postId,User}, {
+      var likePromise = axios.post(`${BaseUrl()}/user/post/like`, {postId,User,UserName}, {
           headers: headers,
           withCredentials:true
       });
@@ -63,11 +64,16 @@ useEffect(() => {
 
     const postId = post._id;
     const User = UserData.UserId;
+    const UserName = UserData.UserName;
+
     let ans = prompt("Do you want to delete this post ? (YES/NO)");
     if(ans==="YES")
     {
       try {
-        const deletePromise = axios.post(`${BaseUrl()}/user/post/deletePost`, {postId,User});
+        const deletePromise = axios.post(`${BaseUrl()}/user/post/deletePost`, {postId,User,UserName}, {
+          headers: headers,
+          withCredentials:true
+      });
         toast.promise(deletePromise, {
           pending: 'Deleting your Post...',
           success: 'Please refesh the page!',
