@@ -1,24 +1,50 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import "./Header.css";
 import { useState } from "react";
 
 const Header = () => {
   const UserData = useSelector((state) => state.UserData);
-  const Navigate = useNavigate();
-
-  const [LoggedIn, setLoggedIn] = useState(UserData.UserName);
+  const navigate = useNavigate();
+  const [auth, setAuth] = useState(false);
+  
+    useEffect(() => {
+      const authChecker = async () => {
+        if (!UserData || !UserData.UserId || !UserData.UserName) {
+          navigate("/logout"); // or "/" as you wish
+          return;
+        }
+        
+        try {
+          const response = await axios.post(
+            `${BaseUrl()}/check`,
+            { UserName: UserData.UserName },
+            {
+              headers: { "Content-Type": "application/json" },
+              withCredentials: true
+            }
+          );
+          // console.log(response);
+          setAuth(true);
+        } catch (error) {
+          console.log("Auth failed:", error.message);
+          navigate("/");
+        }
+      };
+  
+      authChecker();
+    }, [UserData, navigate]);
+  
 
   const handleClick = (e) => {
     e.preventDefault();
-    Navigate("/logout");
+    navigate("/logout");
   }
   
   return (
     <>
-      {LoggedIn &&
+      {auth &&
         <header className="header">
           <div className="header-container">
             <div className="user-section">
