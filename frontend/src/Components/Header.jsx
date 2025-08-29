@@ -2,7 +2,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import axios from "axios";
+import { BaseUrl } from '../BaseUrl.js';
+
 
 const Header = () => {
   const UserData = useSelector((state) => state.UserData);
