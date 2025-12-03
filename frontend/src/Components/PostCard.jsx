@@ -70,6 +70,9 @@ useEffect(() => {
     if(ans==="YES")
     {
       try {
+        const headers = {
+        "Content-Type": "application/json", 
+      };
         const deletePromise = axios.post(`${BaseUrl()}/user/post/deletePost`, {postId,User,UserName}, {
           headers: headers,
           withCredentials:true
